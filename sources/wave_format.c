@@ -1,0 +1,12 @@
+#include <strings.h>
+
+#include "wave_format.h"
+
+#include "to_bytes.h"
+
+char WAVE_FORMAT_PCM[WAVE_FORMAT_CODE_LENGTH] = { 0, 1 };
+char WAVE_FORMAT_IEEE_FLOAT[WAVE_FORMAT_CODE_LENGTH] = { 0, 3 };
+char WAVE_FORMAT_ALAW[WAVE_FORMAT_CODE_LENGTH] = { 0, 6 };
+char WAVE_FORMAT_MULAW[WAVE_FORMAT_CODE_LENGTH] = { 0, 7 };
+char WAVE_FORMAT_EXTENSIBLE[WAVE_FORMAT_CODE_LENGTH] = { 255, 254 };
+
