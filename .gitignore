@@ -6,3 +6,7 @@ wave
 objects
 objects/*
 
+# Data
+wave_files
+wave_files/*
+
