@@ -6,7 +6,7 @@ wave
 objects
 objects/*
 
-# Data
+# Output
 wave_files
 wave_files/*
 
