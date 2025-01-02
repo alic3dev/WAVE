@@ -83,41 +83,44 @@ unsigned char write_chunk_fmt(struct ChunkFmt* chunk_fmt, FILE* output_file) {
       CHUNK_FMT_CB_SIZE_LENGTH +
       CHUNK_FMT_W_VALID_BITS_PER_SAMPLE_LENGTH +
       CHUNK_FMT_DW_CHANNEL_MASK_LENGTH +
-      CHUNK_FMT_SUB_FORMAT_LENGTH + 
-      1
+      CHUNK_FMT_SUB_FORMAT_LENGTH
   );
 
-  static char *output_buffer;
+  char *output_buffer;
   output_buffer = malloc(output_buffer_size);
 
-  for (size_t i = 0; i < output_buffer_size - 1; i++) {
-    output_buffer[i] = (rand() % 8) + 1;
-  }
+  size_t offset = 0;
+  memcpy(output_buffer + offset, chunk_fmt->ck_id, CHUNK_FMT_CK_ID_LENGTH);
+  offset += CHUNK_FMT_CK_ID_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->cksize, CHUNK_FMT_CKSIZE_LENGTH);
+  offset += CHUNK_FMT_CKSIZE_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->w_format_tag, CHUNK_FMT_W_FORMAT_TAG_LENGTH);
+  offset += CHUNK_FMT_W_FORMAT_TAG_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->n_channels, CHUNK_FMT_N_CHANNELS_LENGTH);
+  offset += CHUNK_FMT_N_CHANNELS_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->n_samples_per_sec, CHUNK_FMT_N_SAMPLES_PER_SEC_LENGTH);
+  offset += CHUNK_FMT_N_SAMPLES_PER_SEC_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->n_avg_bytes_per_sec, CHUNK_FMT_N_AVG_BYTES_PER_SEC_LENGTH);
+  offset += CHUNK_FMT_N_AVG_BYTES_PER_SEC_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->n_block_align, CHUNK_FMT_N_BLOCK_ALIGN_LENGTH);
+  offset += CHUNK_FMT_N_BLOCK_ALIGN_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->w_bits_per_sample, CHUNK_FMT_W_BITS_PER_SAMPLE_LENGTH);
+  offset += CHUNK_FMT_W_BITS_PER_SAMPLE_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->cb_size, CHUNK_FMT_CB_SIZE_LENGTH);
+  offset += CHUNK_FMT_CB_SIZE_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->w_valid_bits_per_sample, CHUNK_FMT_W_VALID_BITS_PER_SAMPLE_LENGTH);
+  offset += CHUNK_FMT_W_VALID_BITS_PER_SAMPLE_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->dw_channel_mask, CHUNK_FMT_DW_CHANNEL_MASK_LENGTH);
+  offset += CHUNK_FMT_DW_CHANNEL_MASK_LENGTH;
+  memcpy(output_buffer + offset, chunk_fmt->sub_format, CHUNK_FMT_SUB_FORMAT_LENGTH);
 
-  // TODO: NULL values are gonna be weird to use here, think about this later
-  //       Probably just find a function which accepts a length value *shrugs*
-
-  output_buffer[output_buffer_size - 1] = '\0';
-  fprintf(output_file, "%s", output_buffer);
-
+  size_t bytes_written = fwrite(output_buffer, sizeof(unsigned char), output_buffer_size, output_file);
+ 
   free(output_buffer);
 
-  return 0;
+  return bytes_written;
 }
 
 void destroy_chunk_fmt(struct ChunkFmt* chunk_fmt) {
-  free(chunk_fmt->ck_id);
-  free(chunk_fmt->cksize);
-  free(chunk_fmt->w_format_tag);
-  free(chunk_fmt->n_channels);
-  free(chunk_fmt->n_samples_per_sec);
-  free(chunk_fmt->n_avg_bytes_per_sec);
-  free(chunk_fmt->n_block_align);
-  free(chunk_fmt->w_bits_per_sample);
-  free(chunk_fmt->cb_size);
-  free(chunk_fmt->w_valid_bits_per_sample);
-  free(chunk_fmt->dw_channel_mask);
-  free(chunk_fmt->sub_format);
-  free(chunk_fmt);
 }
 
