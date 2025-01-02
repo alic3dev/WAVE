@@ -4,12 +4,12 @@
 
 #define CHUNK_RIFF_CK_ID_LENGTH 4
 #define CHUNK_RIFF_CKSIZE_LENGTH 4
-#define CHUNK_RIFF_WAVEID_LENGTH 4
+#define CHUNK_RIFF_WAVE_ID_LENGTH 4
 
 struct ChunkRiff {
   char ck_id[CHUNK_RIFF_CK_ID_LENGTH];
   char cksize[CHUNK_RIFF_CKSIZE_LENGTH];
-  char wave_id[CHUNK_RIFF_WAVEID_LENGTH];
+  char wave_id[CHUNK_RIFF_WAVE_ID_LENGTH];
 };
 
 struct ChunkRiff* new_chunk_riff();
