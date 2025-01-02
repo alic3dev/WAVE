@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stddef.h>
 #include <sys/time.h>
 
 #include "wave.h"
@@ -26,20 +27,19 @@ int main(int argc, char* argv[]) {
   enum DATA_TYPE data_type = PCM;
 
   FILE *output_file;
-  output_file = fopen(argv[1], "w");
+  output_file = fopen(argv[1], "wb");
 
   struct ChunkRiff* chunk_riff = new_chunk_riff();
   struct ChunkFmt* chunk_fmt = new_chunk_fmt();
   struct ChunkData* chunk_data = new_chunk_data();
-  struct ChunkFact* chunk_fact;
-
+  struct ChunkFact* chunk_fact = NULL;
   if (data_type != PCM) {
     chunk_fact = new_chunk_fact();
   }
 
   write_chunk_riff(chunk_riff, output_file);
   write_chunk_fmt(chunk_fmt, output_file);
-  if (chunk_fact) {
+  if (chunk_fact != NULL) {
     write_chunk_fact(chunk_fact, output_file);
   }
   write_chunk_data(chunk_data, output_file);
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 
   destroy_chunk_riff(chunk_riff);
   destroy_chunk_fmt(chunk_fmt);
-  if (chunk_fact) {
+  if (chunk_fact != NULL) {
     destroy_chunk_fact(chunk_fact);
   }
   destroy_chunk_data(chunk_data);
