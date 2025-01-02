@@ -1,21 +1,39 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "chunk_fact.h"
 
 struct ChunkFact* new_chunk_fact() {
-  static struct ChunkFact chunkFact;
+  static struct ChunkFact chunk_fact;
+  memcpy(chunk_fact.ck_id, "fact", CHUNK_FACT_CK_ID_LENGTH);
 
-  return &chunkFact;
+  return &chunk_fact;
 }
 
 unsigned char write_chunk_fact(struct ChunkFact* chunk_fact, FILE* output_file) {
-  return 0;
+  size_t output_buffer_length = (
+      CHUNK_FACT_CK_ID_LENGTH + 
+      CHUNK_FACT_CKSIZE_LENGTH +
+      CHUNK_FACT_DW_SAMPLE_LENGTH_LENGTH
+  );
+
+  char *output_buffer;
+  output_buffer = malloc(output_buffer_length);
+
+  size_t offset = 0;
+  memcpy(output_buffer, chunk_fact->ck_id, CHUNK_FACT_CK_ID_LENGTH);
+  offset += CHUNK_FACT_CK_ID_LENGTH;
+  memcpy(output_buffer, chunk_fact->cksize, CHUNK_FACT_CKSIZE_LENGTH);
+  offset += CHUNK_FACT_CKSIZE_LENGTH;
+  memcpy(output_buffer, chunk_fact->dw_sample_length, CHUNK_FACT_DW_SAMPLE_LENGTH_LENGTH);
+
+  size_t bytes_written = fwrite(output_buffer, sizeof(unsigned char), output_buffer_length, output_file);
+  free(output_buffer);
+
+  return bytes_written;
 }
 
 void destroy_chunk_fact(struct ChunkFact* chunk_fact) {
-  free(chunk_fact->ck_id);
-  free(chunk_fact->cksize);
-  free(chunk_fact->dw_sample_length);
-  free(chunk_fact);
 }
 
