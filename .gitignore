@@ -6,3 +6,9 @@ wave
 objects
 objects/*
 
+# Output
+output
+output/*
+*.wav
+*.wave
+

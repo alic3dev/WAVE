@@ -20,4 +20,3 @@ $(OBJECTS_DIRECTORY)/%.o: $(SOURCES_DIRECTORY)/%.c
 
 clean:
 	-rm $(OUT_FILE) $(OBJECTS_DIRECTORY)/*.o 2> /dev/null
-

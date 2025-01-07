@@ -4,5 +4,12 @@ An implementation of the wave file specification.
 
 ## Build
 
-`make`
+```sh
+make
+```
 
+### Clean
+
+```sh
+make clean
+```
