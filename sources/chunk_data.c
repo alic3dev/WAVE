@@ -3,8 +3,8 @@
 
 #include "chunk_data.h"
 
-struct ChunkData* new_chunk_data() {
-  static struct ChunkData chunk_data;
+struct chunk_data* new_chunk_data() {
+  static struct chunk_data chunk_data;
   memcpy(chunk_data.ck_id, "data", CHUNK_DATA_CK_ID_LENGTH);
 
   chunk_data.sampled_data = malloc(chunk_data.sampled_data_length);
@@ -15,7 +15,7 @@ struct ChunkData* new_chunk_data() {
   return &chunk_data;
 }
 
-unsigned char write_chunk_data(struct ChunkData* chunk_data, FILE* output_file) {
+unsigned char write_chunk_data(struct chunk_data* chunk_data, FILE* output_file) {
   size_t output_buffer_length = (
       CHUNK_DATA_CK_ID_LENGTH +
       CHUNK_DATA_CKSIZE_LENGTH +
@@ -41,7 +41,7 @@ unsigned char write_chunk_data(struct ChunkData* chunk_data, FILE* output_file) 
   return bytes_written;
 }
 
-void destroy_chunk_data(struct ChunkData* chunk_data) {
+void destroy_chunk_data(struct chunk_data* chunk_data) {
   free(chunk_data->sampled_data);
 }
 

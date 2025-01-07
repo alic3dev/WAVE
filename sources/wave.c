@@ -29,10 +29,10 @@ int main(int argc, char* argv[]) {
   FILE *output_file;
   output_file = fopen(argv[1], "wb");
 
-  struct ChunkRiff* chunk_riff = new_chunk_riff();
-  struct ChunkFmt* chunk_fmt = new_chunk_fmt();
-  struct ChunkData* chunk_data = new_chunk_data();
-  struct ChunkFact* chunk_fact = NULL;
+  struct chunk_riff* chunk_riff = new_chunk_riff();
+  struct chunk_fmt* chunk_fmt = new_chunk_fmt();
+  struct chunk_data* chunk_data = new_chunk_data();
+  struct chunk_fact* chunk_fact = NULL;
   if (data_type != PCM) {
     chunk_fact = new_chunk_fact();
   }

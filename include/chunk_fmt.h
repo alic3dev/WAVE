@@ -16,9 +16,9 @@
 #define CHUNK_FMT_DW_CHANNEL_MASK_LENGTH 4
 #define CHUNK_FMT_SUB_FORMAT_LENGTH 16
 
-struct ChunkFmt {
+struct chunk_fmt {
   char ck_id[CHUNK_FMT_CK_ID_LENGTH];
-  char cksize[CHUNK_FMT_CKSIZE_LENGTH];
+  char cksize[CHUNK_FMT_CKSIZE_LENGTH]; //  16, 18 or 40
   char w_format_tag[CHUNK_FMT_W_FORMAT_TAG_LENGTH];
   char n_channels[CHUNK_FMT_N_CHANNELS_LENGTH];
   char n_samples_per_sec[CHUNK_FMT_N_SAMPLES_PER_SEC_LENGTH];
@@ -31,9 +31,9 @@ struct ChunkFmt {
   char sub_format[CHUNK_FMT_SUB_FORMAT_LENGTH];
 };
 
-struct ChunkFmt* new_chunk_fmt();
-unsigned char write_chunk_fmt(struct ChunkFmt*, FILE*);
-void destroy_chunk_fmt(struct ChunkFmt*);
+struct chunk_fmt* new_chunk_fmt();
+unsigned char write_chunk_fmt(struct chunk_fmt*, FILE*);
+void destroy_chunk_fmt(struct chunk_fmt*);
 
 #endif
 

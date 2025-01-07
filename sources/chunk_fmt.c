@@ -7,70 +7,75 @@
 #include "constants.h"
 #include "guid.h"
 
-struct ChunkFmt* new_chunk_fmt() {
-  static struct ChunkFmt chunkFmt;
+struct chunk_fmt* new_chunk_fmt() {
+  static struct chunk_fmt chunk_fmt;
   memcpy(
-      chunkFmt.ck_id, 
+      chunk_fmt.ck_id, 
       "fmt ", 
       CHUNK_FMT_CK_ID_LENGTH
   );
   memcpy(
-      chunkFmt.w_format_tag, 
+    chunk_fmt.cksize,
+    to_bytes_int(16, CHUNK_FMT_CKSIZE_LENGTH, CONSTANTS_LITTLE_ENDIAN),
+    CHUNK_FMT_CKSIZE_LENGTH
+  );
+  memcpy(
+      chunk_fmt.w_format_tag, 
       WAVE_FORMAT_PCM, 
       WAVE_FORMAT_CODE_LENGTH
   );
   memcpy(
-      chunkFmt.n_channels, 
+      chunk_fmt.n_channels, 
       to_bytes_int(2, CHUNK_FMT_N_CHANNELS_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_N_CHANNELS_LENGTH
   );
   memcpy(
-      chunkFmt.n_samples_per_sec, 
+      chunk_fmt.n_samples_per_sec, 
       to_bytes_int(44100, CHUNK_FMT_N_SAMPLES_PER_SEC_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_N_SAMPLES_PER_SEC_LENGTH
   );
  
   // TODO: Figure out the proper values to set these to. Will worry about that later
   memcpy(
-      chunkFmt.n_avg_bytes_per_sec,
+      chunk_fmt.n_avg_bytes_per_sec,
       to_bytes_int(0, CHUNK_FMT_N_AVG_BYTES_PER_SEC_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_N_AVG_BYTES_PER_SEC_LENGTH
   );
   memcpy(
-      chunkFmt.n_block_align, 
+      chunk_fmt.n_block_align, 
       to_bytes_int(0, CHUNK_FMT_N_BLOCK_ALIGN_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_N_BLOCK_ALIGN_LENGTH
   );
   memcpy(
-      chunkFmt.w_bits_per_sample, 
+      chunk_fmt.w_bits_per_sample, 
       to_bytes_int(0, CHUNK_FMT_W_BITS_PER_SAMPLE_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_W_BITS_PER_SAMPLE_LENGTH
   );
   memcpy(
-      chunkFmt.cb_size,
+      chunk_fmt.cb_size,
       to_bytes_int(0, CHUNK_FMT_CB_SIZE_LENGTH, CONSTANTS_LITTLE_ENDIAN), /* 0 or 22 */
       CHUNK_FMT_CB_SIZE_LENGTH
   );
   memcpy(
-      chunkFmt.w_valid_bits_per_sample,
+      chunk_fmt.w_valid_bits_per_sample,
       to_bytes_int(0, CHUNK_FMT_W_VALID_BITS_PER_SAMPLE_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_W_VALID_BITS_PER_SAMPLE_LENGTH
   );
   memcpy(
-      chunkFmt.dw_channel_mask,
+      chunk_fmt.dw_channel_mask,
       to_bytes_int(0, CHUNK_FMT_DW_CHANNEL_MASK_LENGTH, CONSTANTS_LITTLE_ENDIAN),
       CHUNK_FMT_DW_CHANNEL_MASK_LENGTH
   );
   memcpy(
-      chunkFmt.sub_format,
+      chunk_fmt.sub_format,
       generate_guid(CHUNK_FMT_SUB_FORMAT_LENGTH),
       CHUNK_FMT_SUB_FORMAT_LENGTH
   );
 
-  return &chunkFmt;
+  return &chunk_fmt;
 }
 
-unsigned char write_chunk_fmt(struct ChunkFmt* chunk_fmt, FILE* output_file) {
+unsigned char write_chunk_fmt(struct chunk_fmt* chunk_fmt, FILE* output_file) {
   size_t output_buffer_size = (
       CHUNK_FMT_CK_ID_LENGTH +
       CHUNK_FMT_CKSIZE_LENGTH +
@@ -121,6 +126,6 @@ unsigned char write_chunk_fmt(struct ChunkFmt* chunk_fmt, FILE* output_file) {
   return bytes_written;
 }
 
-void destroy_chunk_fmt(struct ChunkFmt* chunk_fmt) {
+void destroy_chunk_fmt(struct chunk_fmt* chunk_fmt) {
 }
 

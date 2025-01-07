@@ -4,14 +4,14 @@
 
 #include "chunk_fact.h"
 
-struct ChunkFact* new_chunk_fact() {
-  static struct ChunkFact chunk_fact;
+struct chunk_fact* new_chunk_fact() {
+  static struct chunk_fact chunk_fact;
   memcpy(chunk_fact.ck_id, "fact", CHUNK_FACT_CK_ID_LENGTH);
 
   return &chunk_fact;
 }
 
-unsigned char write_chunk_fact(struct ChunkFact* chunk_fact, FILE* output_file) {
+unsigned char write_chunk_fact(struct chunk_fact* chunk_fact, FILE* output_file) {
   size_t output_buffer_length = (
       CHUNK_FACT_CK_ID_LENGTH + 
       CHUNK_FACT_CKSIZE_LENGTH +
@@ -34,6 +34,4 @@ unsigned char write_chunk_fact(struct ChunkFact* chunk_fact, FILE* output_file) 
   return bytes_written;
 }
 
-void destroy_chunk_fact(struct ChunkFact* chunk_fact) {
-}
-
+void destroy_chunk_fact(struct chunk_fact* chunk_fact) {}

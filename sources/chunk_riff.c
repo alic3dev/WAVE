@@ -5,13 +5,13 @@
 #include "chunk_riff.h"
 #include "to_bytes.h"
 
-struct ChunkRiff* new_chunk_riff() {
-  static struct ChunkRiff chunkRiff;
-  memcpy(chunkRiff.ck_id, "RIFF", 4);
+struct chunk_riff* new_chunk_riff() {
+  static struct chunk_riff chunk_riff;
+  memcpy(chunk_riff.ck_id, "RIFF", 4);
 
   size_t chunkLength = 0;
   memcpy(
-    chunkRiff.cksize,
+    chunk_riff.cksize,
     to_bytes_int(
       chunkLength + 4, 
       CHUNK_RIFF_CKSIZE_LENGTH, 
@@ -20,12 +20,12 @@ struct ChunkRiff* new_chunk_riff() {
     CHUNK_RIFF_CKSIZE_LENGTH
   );
 
-  memcpy(chunkRiff.wave_id, "WAVE", 4);
+  memcpy(chunk_riff.wave_id, "WAVE", 4);
 
-  return &chunkRiff;
+  return &chunk_riff;
 }
 
-unsigned char write_chunk_riff(struct ChunkRiff* chunk_riff, FILE* output_file) {
+unsigned char write_chunk_riff(struct chunk_riff* chunk_riff, FILE* output_file) {
   size_t output_buffer_length = (
       CHUNK_RIFF_CK_ID_LENGTH +
       CHUNK_RIFF_CKSIZE_LENGTH +
@@ -49,6 +49,6 @@ unsigned char write_chunk_riff(struct ChunkRiff* chunk_riff, FILE* output_file) 
   return bytes_written;
 }
 
-void destroy_chunk_riff(struct ChunkRiff* chunk_riff) {
+void destroy_chunk_riff(struct chunk_riff* chunk_riff) {
 }
 
