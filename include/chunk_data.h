@@ -19,4 +19,3 @@ unsigned char write_chunk_data(struct chunk_data*, FILE *);
 void destroy_chunk_data(struct chunk_data*);
 
 #endif
-

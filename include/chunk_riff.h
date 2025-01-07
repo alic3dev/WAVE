@@ -17,4 +17,3 @@ unsigned char write_chunk_riff(struct chunk_riff*, FILE*);
 void destroy_chunk_riff(struct chunk_riff*);
 
 #endif
-

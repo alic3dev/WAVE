@@ -10,4 +10,3 @@ extern char* GUID_CHAR_SET;
 char* generate_guid(size_t);
 
 #endif
-

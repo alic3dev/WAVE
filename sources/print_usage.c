@@ -5,4 +5,3 @@
 void print_usage() {
   printf("USAGE: wave\n");
 }
-

@@ -25,4 +25,3 @@ char* generate_guid(size_t length) {
 
   return guid;
 }
-

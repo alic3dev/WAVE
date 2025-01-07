@@ -6,4 +6,3 @@
 char* to_bytes_int(int, size_t, unsigned char);
 
 #endif
-

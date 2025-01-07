@@ -4,4 +4,3 @@
 #define CONSTANTS_LITTLE_ENDIAN 1
 
 #endif
-

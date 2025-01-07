@@ -26,4 +26,3 @@ char* to_bytes_int(int value, size_t length, unsigned char little_endian) {
 
   return bytes;
 }
-

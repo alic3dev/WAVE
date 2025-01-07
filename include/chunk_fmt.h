@@ -36,4 +36,3 @@ unsigned char write_chunk_fmt(struct chunk_fmt*, FILE*);
 void destroy_chunk_fmt(struct chunk_fmt*);
 
 #endif
-

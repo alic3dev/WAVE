@@ -18,4 +18,3 @@ unsigned char write_chunk_fact(struct chunk_fact*, FILE*);
 void destroy_chunk_fact(struct chunk_fact*);
 
 #endif
-
