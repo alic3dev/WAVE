@@ -14,7 +14,7 @@ struct chunk_data {
   char pad_byte;
 };
 
-struct chunk__data* new_chunk_data();
+struct chunk_data* new_chunk_data();
 unsigned char write_chunk_data(struct chunk_data*, FILE *);
 void destroy_chunk_data(struct chunk_data*);
 
